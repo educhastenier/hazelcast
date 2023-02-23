@@ -23,6 +23,7 @@ public final class BufferUtil {
 
     private BufferUtil() {
     }
+
     /**
      * Compacts or clears the buffer depending if bytes are remaining in the byte-buffer.
      *
@@ -66,7 +67,16 @@ public final class BufferUtil {
         return buf;
     }
 
-    public static void put(ByteBuffer dst, ByteBuffer src) {
+    public static String toDebugString(ByteBuffer byteBuffer) {
+        return toDebugString("", byteBuffer);
+    }
+
+    public static String toDebugString(String name, ByteBuffer byteBuffer) {
+        return name + "(pos:" + byteBuffer.position() + " lim:" + byteBuffer.limit()
+                + " remain:" + byteBuffer.remaining() + " cap:" + byteBuffer.capacity() + ")";
+    }
+
+     public static void put(ByteBuffer dst, ByteBuffer src) {
         if (src.remaining() <= dst.remaining()) {
             // there is enough space in the dst buffer to copy the src
             dst.put(src);
